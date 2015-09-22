@@ -2,4 +2,7 @@
     <string name="app_name">NYTAndroid</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="api_key_article_search">1367b4a2fe5718762a712c241d8ed9c5:14:73022442</string>
+    <string name="api_key_most_popular">15ea7158f83b3180d0d50107fdd7b196:10:73022442</string>
+
 </resources>
