@@ -17,22 +17,19 @@ import java.util.List;
 
 import retrofit.RestAdapter;
 import teamvoy.com.nytandroid.R;
-import teamvoy.com.nytandroid.retrofit.RestClient;
+import teamvoy.com.nytandroid.retrofit.RestInterface;
 
 
 public class MainActivity extends AppCompatActivity {
     private Context context;
-    RestClient restClient;
-    public static final String BASE_URL = "http://api.nytimes.com";
+
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context=this;
-        RestAdapter restAdapter= new RestAdapter.Builder()
-                .setEndpoint(BASE_URL)
-                .build();
-         restClient=restAdapter.create(RestClient.class);
+
         final Toolbar toolbar = (Toolbar) findViewById(R.id.tabanim_toolbar);
         setSupportActionBar(toolbar);
 
@@ -49,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new MostPopularFragment(restClient), "Most Popular");
+        adapter.addFrag(new MostPopularFragment(), "Most Popular");
 
         viewPager.setAdapter(adapter);
     }

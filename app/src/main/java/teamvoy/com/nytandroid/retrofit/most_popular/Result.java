@@ -42,10 +42,10 @@ public class Result {
     public String source;
     @SerializedName("id")
     @Expose
-    public Integer id;
+    public String id;
     @SerializedName("asset_id")
     @Expose
-    public Integer assetId;
+    public String assetId;
     @SerializedName("views")
     @Expose
     public Integer views;
@@ -54,14 +54,17 @@ public class Result {
     public List<String> desFacet = new ArrayList<String>();
     @SerializedName("org_facet")
     @Expose
-    public String orgFacet;
+    public List<String> orgFacet= new ArrayList<String>();
     @SerializedName("per_facet")
     @Expose
     public List<String> perFacet = new ArrayList<String>();
-    @SerializedName("geo_facet")
+/*    @SerializedName("geo_facet")
     @Expose
     public List<String> geoFacet = new ArrayList<String>();
+    */
     @SerializedName("media")
     @Expose
-    public List<Medium> media = new ArrayList<Medium>();
+   // public Medium media;
+    public List<Medium> media = new ArrayList<>();
+
 }
