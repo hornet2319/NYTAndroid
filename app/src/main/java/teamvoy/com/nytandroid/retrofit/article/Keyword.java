@@ -20,35 +20,6 @@ public class Keyword {
     @Expose
     public String value;
 
-    public String getRank() {
-        return rank;
-    }
 
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
 
-    public String getIsMajor() {
-        return isMajor;
-    }
-
-    public void setIsMajor(String isMajor) {
-        this.isMajor = isMajor;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
 }

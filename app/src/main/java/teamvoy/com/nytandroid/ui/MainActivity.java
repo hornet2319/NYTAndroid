@@ -15,9 +15,9 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.RestAdapter;
 import teamvoy.com.nytandroid.R;
-import teamvoy.com.nytandroid.retrofit.RestInterface;
+import teamvoy.com.nytandroid.ui.fragments.MostPopularFragment;
+import teamvoy.com.nytandroid.ui.fragments.NewsFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.tabanim_toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle(getResources().getString(R.string.news));
 
         PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_title_strip);
 
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new NewsFragment(), "Latest");
         adapter.addFrag(new MostPopularFragment(), "Most Popular");
 
         viewPager.setAdapter(adapter);
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
+            mFragmentList.clear();
+            mFragmentTitleList.clear();
         }
 
         @Override

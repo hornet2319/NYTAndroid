@@ -47,6 +47,8 @@
     <color name="amber">#FFC107</color>
     <color name="orange">#FF9800</color>
     <color name="deep_orange">#FF5722</color>
+    <color name="text_second_grey">#666666</color>
+    <color name="text_third_grey">#B2B2B2</color>
 
 
 </resources>
