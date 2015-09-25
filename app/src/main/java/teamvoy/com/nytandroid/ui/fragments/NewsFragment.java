@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -46,6 +49,7 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View rootview = inflater.inflate(R.layout.fragment_main, container, false);
         restInterface = RestClient.getInstance("docs").getClient();
         articleList =new ArrayList<>();
@@ -153,5 +157,26 @@ public class NewsFragment extends Fragment {
 
         restInterface.getArticles(q, fq, begin_date, end_date, order, page
                 , getResources().getString(R.string.api_key_article_search), callback);
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_news, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_search:{
+                //TODO handle search item click here
+                break;
+            }
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }
