@@ -4,10 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="5dp">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/article_type"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="type"
+        android:textSize="13sp"
+        android:textColor="@color/primary_text_default_material_light"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
+
     android:orientation="vertical">
     <TextView
         android:id="@+id/article_section_name"
@@ -34,17 +48,35 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"/>
-        <TextView
-            android:id="@+id/article_autor"
-            android:layout_alignParentLeft="true"
-            android:layout_alignLeft="@+id/article_img"
+        <LinearLayout
+            android:id="@+id/linear1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="by "
-            android:textSize="13sp"
-            android:textColor="@color/text_third_grey"
+            android:orientation="vertical"
             android:layout_toStartOf="@+id/article_img"
-            android:layout_toLeftOf="@+id/article_img" />
+            android:layout_toLeftOf="@+id/article_img"
+            android:layout_alignParentLeft="true">
+            <TextView
+                android:id="@+id/article_autor"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="by "
+                android:textSize="13sp"
+                android:textColor="@color/text_third_grey"
+                />
+            <TextView
+                android:id="@+id/article_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date "
+                android:visibility="gone"
+                android:textSize="13sp"
+                android:textColor="@color/accent_400"
+                />
+        </LinearLayout>
+
+
         <TextView
             android:id="@+id/article_content"
             android:layout_width="wrap_content"
@@ -53,10 +85,12 @@
             android:text="content"
             android:textSize="15sp"
             android:textColor="@color/text_second_grey"
-            android:layout_below="@+id/article_autor"
+            android:layout_below="@+id/linear1"
             android:layout_toLeftOf="@+id/article_img"
             android:layout_toStartOf="@+id/article_img" />
+
     </RelativeLayout>
 
 </LinearLayout>
+</RelativeLayout>
 </android.support.v7.widget.CardView>

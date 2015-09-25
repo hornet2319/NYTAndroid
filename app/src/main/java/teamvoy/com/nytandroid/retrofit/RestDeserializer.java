@@ -31,9 +31,6 @@ public class RestDeserializer<T> implements JsonDeserializer<T> {
         switch (mKey){
             case "results":{
                 validateArray("media", json);
-                validateArray("org_facet", json);
-                validateArray("des_facet", json);
-                validateArray("per_facet", json);
                 break;
             }
             case "docs":{
@@ -91,7 +88,7 @@ public class RestDeserializer<T> implements JsonDeserializer<T> {
                 json = jo;
 
             }
-              Log.d(TAG, tag + "=" + json.getAsJsonObject().get(tag).toString());
+            //  Log.d(TAG, tag + "=" + json.getAsJsonObject().get(tag).toString());
         }
     }
 

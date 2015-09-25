@@ -30,8 +30,9 @@ import teamvoy.com.nytandroid.ui.adapters.ArticleRecyclerAdapter;
 public class NewsFragment extends Fragment {
     private RestInterface restInterface;
     private String TAG = this.getClass().getSimpleName();
-    private SwipeRefreshLayout swipe;
+
     private Callback<Article> callback;
+    private SwipeRefreshLayout swipe;
     private List<Article> articleList;
     private ArticleRecyclerAdapter adapter;
     private boolean _loading = true;
