@@ -13,9 +13,9 @@ public class Result {
     @SerializedName("url")
     @Expose
     public String url;
-    @SerializedName("adx_keywords")
+ /*   @SerializedName("adx_keywords")
     @Expose
-    public String adxKeywords;
+    public String adxKeywords; */
     @SerializedName("column")
     @Expose
     public String column;
@@ -40,7 +40,7 @@ public class Result {
     @SerializedName("source")
     @Expose
     public String source;
-    @SerializedName("id")
+ /*   @SerializedName("id")
     @Expose
     public String id;
     @SerializedName("asset_id")
@@ -49,7 +49,7 @@ public class Result {
     @SerializedName("views")
     @Expose
     public Integer views;
-    @SerializedName("des_facet")
+   /* @SerializedName("des_facet")
     @Expose
     public List<String> desFacet = new ArrayList<String>();
     @SerializedName("org_facet")

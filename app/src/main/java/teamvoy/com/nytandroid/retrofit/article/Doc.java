@@ -20,12 +20,12 @@ public class Doc {
     @SerializedName("lead_paragraph")
     @Expose
     public String leadParagraph;
-    @SerializedName("abstract")
+   /* @SerializedName("abstract")
     @Expose
     public Object _abstract;
     @SerializedName("print_page")
     @Expose
-    public Object printPage;
+    public Object printPage;*/
     @SerializedName("source")
     @Expose
     public String source;
@@ -35,9 +35,9 @@ public class Doc {
     @SerializedName("headline")
     @Expose
     public Headline headline;
-    @SerializedName("keywords")
+  /*  @SerializedName("keywords")
     @Expose
-    public List<Keyword> keywords = new ArrayList<Keyword>();
+    public List<Keyword> keywords = new ArrayList<Keyword>(); */
     @SerializedName("pub_date")
     @Expose
     public String pubDate;

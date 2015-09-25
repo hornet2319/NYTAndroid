@@ -16,12 +16,12 @@ public class Medium {
         @SerializedName("subtype")
         @Expose
         public String subtype;
-        @SerializedName("caption")
+      /*  @SerializedName("caption")
         @Expose
         public String caption;
         @SerializedName("copyright")
         @Expose
-        public String copyright;
+        public String copyright; */
         @SerializedName("media-metadata")
         @Expose
         public List<MediaMetadatum> mediaMetadata = new ArrayList<MediaMetadatum>();

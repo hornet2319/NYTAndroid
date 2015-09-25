@@ -19,9 +19,9 @@ public class Multimedium {
     @SerializedName("subtype")
     @Expose
     public String subtype;
-    @SerializedName("legacy")
+   /* @SerializedName("legacy")
     @Expose
-    public Legacy legacy;
+    public Legacy legacy; */
     @SerializedName("type")
     @Expose
     public String type;

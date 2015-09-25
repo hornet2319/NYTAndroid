@@ -1,5 +1,7 @@
 package teamvoy.com.nytandroid.retrofit;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -26,13 +28,21 @@ public class RestDeserializer<T> implements JsonDeserializer<T> {
     @Override
     public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-        validateArray("media", json);
-        validateArray("org_facet", json);
-        validateArray("des_facet", json);
-        validateArray("per_facet", json);
-        validateObject("byline",json);
-
-
+        switch (mKey){
+            case "results":{
+                validateArray("media", json);
+                validateArray("org_facet", json);
+                validateArray("des_facet", json);
+                validateArray("per_facet", json);
+                break;
+            }
+            case "docs":{
+                validateObject("byline", json);
+                validateObject("headline",json);
+                validateString("subsection_name", json);
+                validateString("section_name", json);
+            }
+        }
         return new Gson().fromJson(json, mClass);
     }
     private void validateArray(String tag, JsonElement json) {
@@ -48,7 +58,7 @@ public class RestDeserializer<T> implements JsonDeserializer<T> {
                 json = jo;
 
             }
-          //  Log.d(TAG, tag + "=" + json.getAsJsonObject().get(tag).toString());
+           // Log.d(TAG, tag + "=" + json.getAsJsonObject().get(tag).toString());
         }
 
     }
@@ -66,6 +76,22 @@ public class RestDeserializer<T> implements JsonDeserializer<T> {
 
             }
             //  Log.d(TAG, tag + "=" + json.getAsJsonObject().get(tag).toString());
+        }
+    }
+    private void validateString(String tag, JsonElement json){
+        if (json.getAsJsonObject().has(tag)) {
+            JsonElement content = json.getAsJsonObject().get(tag);
+
+            if (content.toString().equals("null")) {
+               //   Log.e(TAG, "costylize " + tag);
+              //  Log.e(TAG, tag + "=" + content.toString());
+                JsonObject jo = json.getAsJsonObject();
+                jo.remove(tag);
+                jo.addProperty(tag, "");
+                json = jo;
+
+            }
+              Log.d(TAG, tag + "=" + json.getAsJsonObject().get(tag).toString());
         }
     }
 

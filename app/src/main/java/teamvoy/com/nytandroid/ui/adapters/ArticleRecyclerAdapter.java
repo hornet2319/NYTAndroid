@@ -46,9 +46,10 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
     @Override
     public void onBindViewHolder(VersionViewHolder holder, int pos) {
         Doc item=data.get(pos);
-
-        holder.section_name.setText(item.sectionName);
         holder.header.setText(item.headline.main);
+        if (item.headline.main==null) holder.header.setText(item.headline.name);
+        holder.section_name.setText(item.sectionName);
+
         if (item.byline==null) holder.author.setVisibility(View.GONE);
         holder.author.setText(item.byline.original);
         holder.content.setText(item.snippet);

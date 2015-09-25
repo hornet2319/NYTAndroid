@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class Byline {
 
-    @SerializedName("person")
+  /*  @SerializedName("person")
     @Expose
-    public List<Person> person = new ArrayList<Person>();
+    public List<Person> person = new ArrayList<Person>(); */
     @SerializedName("original")
     @Expose
     public String original;

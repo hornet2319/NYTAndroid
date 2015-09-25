@@ -1,6 +1,7 @@
 package teamvoy.com.nytandroid.ui.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,8 +33,9 @@ public class NewsFragment extends Fragment {
     private SwipeRefreshLayout swipe;
     private Callback<Article> callback;
     private List<Article> articleList;
-    ArticleRecyclerAdapter adapter;
+    private ArticleRecyclerAdapter adapter;
     private boolean _loading = true;
+    private FloatingActionButton fab;
 
 
     public NewsFragment() {
@@ -48,8 +50,10 @@ public class NewsFragment extends Fragment {
         articleList =new ArrayList<>();
         swipe = (SwipeRefreshLayout) rootview.findViewById(R.id.swipe);
         swipe.setColorSchemeColors(getResources().getColor(R.color.accent_400));
+        fab=(FloatingActionButton)rootview.findViewById(R.id.fab);
 
-        RecyclerView recyclerView = (RecyclerView) rootview.findViewById(R.id.dummyfrag_scrollableview);
+
+        final RecyclerView recyclerView = (RecyclerView) rootview.findViewById(R.id.dummyfrag_scrollableview);
         final LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         adapter=new ArticleRecyclerAdapter(getActivity());
@@ -77,19 +81,45 @@ public class NewsFragment extends Fragment {
              Log.e(TAG, error.toString());
          }
      };
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //fab click
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                            fab.hide();
+                            recyclerView.removeOnScrollListener(this);
+                        }
+                    }
+
+                    @Override
+                    public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                    }
+                });
+                recyclerView.smoothScrollToPosition(0);
+            }
+        });
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int totalItemCount;
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 totalItemCount=layoutManager.getItemCount();
+                if(layoutManager.findFirstCompletelyVisibleItemPosition()==0) fab.hide();
                 int lastVisibleItemPosition=layoutManager.findLastVisibleItemPosition();
+                if (lastVisibleItemPosition>10) fab.show();
                 if(_loading){
+
                     if (  lastVisibleItemPosition== totalItemCount-1) {
                         _loading = false;
 
