@@ -1,6 +1,7 @@
 <resources>
 
     <style name="AppTheme" parent="Base.MyTheme"></style>
+    <style name="SettingsTheme" parent="Theme.AppCompat.Light"></style>
 
     <style name="Base.MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary_500</item>
@@ -10,6 +11,7 @@
         <item name="windowActionBarOverlay">true</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/background_material_light</item>
+        <item name="android:textColorPrimary">@android:color/primary_text_light</item>
     </style>
 
     <style name="MyAppDialog" parent="Theme.AppCompat.Light.Dialog">

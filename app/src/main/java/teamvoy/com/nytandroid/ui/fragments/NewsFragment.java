@@ -122,7 +122,7 @@ public class NewsFragment extends Fragment {
                 totalItemCount=layoutManager.getItemCount();
                 if(layoutManager.findFirstCompletelyVisibleItemPosition()==0) fab.hide();
                 int lastVisibleItemPosition=layoutManager.findLastVisibleItemPosition();
-                if (lastVisibleItemPosition>10) fab.show();
+              //  if (lastVisibleItemPosition>10) fab.show();
                 if(_loading){
 
                     if (  lastVisibleItemPosition== totalItemCount-1) {

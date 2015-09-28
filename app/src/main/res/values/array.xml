@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_article_sort_titles">
+        <item>from newest to oldest</item>
+        <item>from oldest to newest</item>
+    </string-array>
+    <string-array name="pref_article_sort_values">
+        <item>newest</item>
+        <item>oldest</item>
+    </string-array>
+    <string-array name="pref_article_section_titles">
+        <item>Arts</item>
+        <item>Automobiles</item>
+        <item>Autos</item>
+        <item>Blogs</item>
+        <item>Books</item>
+        <item>Booming</item>
+        <item>Business</item>
+        <item>Business Day</item>
+        <item>Corrections</item>
+        <item>Crosswords &amp; Games</item>
+        <item>Crosswords/Games</item>
+        <item>Dining &amp; Wine</item>
+        <item> Dining and Wine</item>
+        <item>Editors Notes</item>
+        <item>Education</item>
+        <item>Fashion &amp; Style</item>
+        <item>Food</item>
+        <item>Front Page</item>
+        <item>Giving</item>
+        <item>Global Home</item>
+        <item>Great Homes &amp; Destinations</item>
+        <item>Great Homes and Destinations</item>
+        <item>Health</item>
+        <item>Home &amp; Garden</item>
+        <item>Home and Garden</item>
+        <item>International Home</item>
+        <item>Job Market</item>
+        <item>Learning</item>
+        <item>Magazine</item>
+        <item>Movies</item>
+        <item>Multimedia</item>
+        <item>Multimedia/Photos</item>
+        <item>N.Y. / Region</item>
+        <item>N.Y./Region</item>
+        <item>NYRegion</item>
+        <item>NYT Now</item>
+        <item>National</item>
+        <item>New York</item>
+        <item>New York and Region</item>
+        <item>Obituaries</item>
+        <item>Olympics</item>
+        <item>Open</item>
+        <item>Opinion</item>
+        <item>Paid Death Notices</item>
+        <item>Public Editor</item>
+        <item>Real Estate</item>
+        <item>Science</item>
+        <item>Sports</item>
+        <item>Style</item>
+        <item>Sunday Magazine</item>
+        <item>Sunday Review</item>
+        <item>T Magazine</item>
+        <item>T:Style</item>
+        <item>Technology</item>
+        <item>The Public Editor</item>
+        <item>The Upshot</item>
+        <item>Theater</item>
+        <item>Times Topics</item>
+        <item>TimesMachine</item>
+        <item>Todays Headlines</item>
+        <item>Topics</item>
+        <item>Travel</item>
+        <item>U.S.</item>
+        <item>Universal</item>
+        <item>UrbanEye</item>
+        <item>Washington</item>
+        <item>Week in Review</item>
+        <item>World</item>
+        <item>Your Money</item>
+    </string-array>
+</resources>

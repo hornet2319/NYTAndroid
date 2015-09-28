@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <MultiSelectListPreference
+        android:key="article_section"
+        android:summary="Choose Section"
+        android:title="@string/article_filter_section_title"
+        android:entries="@array/pref_article_section_titles"
+        android:entryValues="@array/pref_article_section_titles"
+        android:negativeButtonText="Cancel"
+        android:positiveButtonText="Ok"/>
+    <teamvoy.com.nytandroid.utils.DatePreference
+        android:key="begin_date"
+        android:title="From date"
+        android:defaultValue="2014-08-01"
+        android:summary="2014-08-01"/>
+    <teamvoy.com.nytandroid.utils.DatePreference
+        android:key="end_date"
+        android:title="To date"
+        android:defaultValue="2014-08-01"
+        android:summary="2014-08-01"/>
+<ListPreference
+    android:key="article_sort"
+    android:summary="Set sorting type"
+    android:title="@string/article_filter_sort_title"
+    android:defaultValue="newest"
+    android:entries="@array/pref_article_sort_titles"
+    android:entryValues="@array/pref_article_sort_values"
+    android:negativeButtonText="@null"
+    android:positiveButtonText="@null"/>
+
+</PreferenceScreen>

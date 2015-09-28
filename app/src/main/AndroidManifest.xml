@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.ArticleFilterActivity"
+            android:label="@string/title_activity_article_filter"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="teamvoy.com.nytandroid.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
