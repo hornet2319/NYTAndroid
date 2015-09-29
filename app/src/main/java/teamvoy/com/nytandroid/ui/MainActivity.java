@@ -68,16 +68,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id){
-            case R.id.action_settings:{
-                break;
-            }
-            case R.id.action_filter:{
-                Intent intent=new Intent(MainActivity.this, ArticleFilterActivity.class);
-                startActivity(intent);
-                break;
-            }
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -111,4 +102,5 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
 }

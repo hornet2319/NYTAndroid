@@ -36,7 +36,22 @@ public class DatePreference extends DialogPreference implements DatePicker.OnDat
     private String dateval;
     private CharSequence mSummary;
     private DatePicker picker = null;
-
+    public static String getYearStr(String dateval){
+        String[] pieces = dateval.split("-");
+        return (pieces[0]);
+    }
+    public static String getMonthStr(String dateval){
+        String[] pieces = dateval.split("-");
+        Integer i=Integer.parseInt(pieces[1]);
+        if (i<10) return "0"+i;
+        return ""+i;
+    }
+    public static String getDateStr(String dateval){
+        String[] pieces = dateval.split("-");
+        Integer i=Integer.parseInt(pieces[2]);
+        if (i<10) return "0"+i;
+        return ""+i;
+    }
     public static int getYear(String dateval) {
         String[] pieces = dateval.split("-");
         return (Integer.parseInt(pieces[0]));
@@ -44,6 +59,7 @@ public class DatePreference extends DialogPreference implements DatePicker.OnDat
 
     public static int getMonth(String dateval) {
         String[] pieces = dateval.split("-");
+        Log.d(TAG, "getMonth="+(Integer.parseInt(pieces[1])+1));
         return (Integer.parseInt(pieces[1]));
     }
 
@@ -61,8 +77,6 @@ public class DatePreference extends DialogPreference implements DatePicker.OnDat
     @Override
     protected View onCreateDialogView() {
         picker = new DatePicker(getContext());
-        picker.init(lastYear, lastMonth, lastDate,this);
-        setNumberPickerProperties(picker.getCalendarView());
 
         // setCalendarViewShown(false) attribute is only available from API level 11
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -85,7 +99,7 @@ public class DatePreference extends DialogPreference implements DatePicker.OnDat
 
         if (positiveResult) {
             lastYear = picker.getYear();
-            lastMonth = picker.getMonth();
+            lastMonth = picker.getMonth()+1;
             lastDate = picker.getDayOfMonth();
 
             String dateval = String.valueOf(lastYear) + "-"
@@ -120,7 +134,7 @@ public class DatePreference extends DialogPreference implements DatePicker.OnDat
             dateval = defaultValue.toString();
         }
         lastYear = getYear(dateval);
-        lastMonth = getMonth(dateval);
+        lastMonth = getMonth(dateval)+1;
         lastDate = getDate(dateval);
     }
 
@@ -136,7 +150,14 @@ public class DatePreference extends DialogPreference implements DatePicker.OnDat
             notifyDependencyChange(isBlocking);
         }
     }
-
+    public String getTextF(String dateval){
+        String str=getYearStr(dateval)+getMonthStr(dateval)+getDateStr(dateval);
+        return str;
+    }
+    public String getTextF(){
+        String str=getYearStr(dateval)+getMonthStr(dateval)+getDateStr(dateval);
+        return str;
+    }
     public String getText() {
         return dateval;
     }
@@ -152,23 +173,8 @@ public class DatePreference extends DialogPreference implements DatePicker.OnDat
             notifyChanged();
         }
     }
-
-    private static void setNumberPickerProperties(CalendarView cv) {
-
-
-        ViewGroup vg = (ViewGroup) cv.getChildAt(0);
-        View child = vg.getChildAt(0);
-
-        if (child instanceof TextView) {
-            Log.d(TAG, "setNumberPickerProperties true");
-            ((TextView) child).setTextColor(Color.BLACK);
-        }
-        else Log.d(TAG, "setNumberPickerProperties false");
-    }
     @Override
     public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-        Log.d(TAG, "onDateChanged ");
-        setNumberPickerProperties(datePicker.getCalendarView());
     }
 }
 

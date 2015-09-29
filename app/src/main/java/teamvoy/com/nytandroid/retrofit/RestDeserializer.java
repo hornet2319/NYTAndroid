@@ -38,6 +38,9 @@ public class RestDeserializer<T> implements JsonDeserializer<T> {
                 validateObject("headline",json);
                 validateString("subsection_name", json);
                 validateString("section_name", json);
+                validateString("source", json);
+                validateString("snippet", json);
+
             }
         }
         return new Gson().fromJson(json, mClass);

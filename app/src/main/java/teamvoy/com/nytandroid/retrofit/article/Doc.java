@@ -37,7 +37,7 @@ public class Doc {
     public Headline headline;
   /*  @SerializedName("keywords")
     @Expose
-    public List<Keyword> keywords = new ArrayList<Keyword>(); */
+    public List<Keyword> keywords = new ArrayList<Keyword>(); *
     @SerializedName("pub_date")
     @Expose
     public String pubDate;
@@ -46,25 +46,17 @@ public class Doc {
     public String documentType;
     @SerializedName("news_desk")
     @Expose
-    public String newsDesk;
+    public String newsDesk;*/
     @SerializedName("section_name")
     @Expose
     public String sectionName;
-    @SerializedName("subsection_name")
-    @Expose
-    public String subsectionName;
     @SerializedName("byline")
     @Expose
     public Byline byline;
-    @SerializedName("type_of_material")
-    @Expose
-    public String typeOfMaterial;
+
     @SerializedName("_id")
     @Expose
     public String Id;
-    @SerializedName("word_count")
-    @Expose
-    public String wordCount;
 
 
 }
