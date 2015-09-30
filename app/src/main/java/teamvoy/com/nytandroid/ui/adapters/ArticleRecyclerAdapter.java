@@ -1,6 +1,7 @@
 package teamvoy.com.nytandroid.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import java.util.List;
 import teamvoy.com.nytandroid.R;
 import teamvoy.com.nytandroid.retrofit.article.Article;
 import teamvoy.com.nytandroid.retrofit.article.Doc;
+import teamvoy.com.nytandroid.ui.ContentActivity;
 
 /**
  * Created by lubomyrshershun on 9/24/15.
@@ -34,7 +36,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
     @Override
     public VersionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerlist_item_article, parent, false);
-        VersionViewHolder viewHolder = new VersionViewHolder(view);
+        VersionViewHolder viewHolder = new VersionViewHolder(view,context);
         return viewHolder;
     }
 
@@ -68,21 +70,27 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
         this.data = data;
     }
 
-    public static class VersionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class VersionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView image;
         TextView section_name, header,author,content;
-        public VersionViewHolder(View view) {
+        Context context;
+        public VersionViewHolder(View view,Context context) {
             super(view);
+            this.context=context;
             image=(ImageView)view.findViewById(R.id.article_img);
             section_name=(TextView)view.findViewById(R.id.article_section_name);
             header=(TextView)view.findViewById(R.id.article_header);
             author=(TextView)view.findViewById(R.id.article_autor);
             content=(TextView)view.findViewById(R.id.article_content);
+            itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            //TODO handle click here
+            Intent intent=new Intent(context, ContentActivity.class);
+            intent.putExtra("url",data.get(getAdapterPosition()).webUrl);
+            intent.putExtra("section",data.get(getAdapterPosition()).sectionName);
+            context.startActivity(intent);
         }
     }
 }

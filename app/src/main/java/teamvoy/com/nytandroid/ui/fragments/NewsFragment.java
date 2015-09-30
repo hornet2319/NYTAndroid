@@ -49,8 +49,6 @@ public class NewsFragment extends Fragment {
     private boolean _loading = true;
     private FloatingActionButton fab;
     private FilterStorage filter=null;
-    private TextView search_resultTv;
-    private RelativeLayout search_resultContainer;
 
     private String SearchQuery=null;
 
