@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +16,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +32,7 @@ import teamvoy.com.nytandroid.retrofit.RestInterface;
 import teamvoy.com.nytandroid.retrofit.article.Article;
 import teamvoy.com.nytandroid.retrofit.article.Doc;
 import teamvoy.com.nytandroid.ui.ArticleFilterActivity;
+import teamvoy.com.nytandroid.ui.MainActivity;
 import teamvoy.com.nytandroid.ui.adapters.ArticleRecyclerAdapter;
 
 /**
@@ -43,6 +49,10 @@ public class NewsFragment extends Fragment {
     private boolean _loading = true;
     private FloatingActionButton fab;
     private FilterStorage filter=null;
+    private TextView search_resultTv;
+    private RelativeLayout search_resultContainer;
+
+    private String SearchQuery=null;
 
 
     public NewsFragment() {
@@ -59,7 +69,6 @@ public class NewsFragment extends Fragment {
         swipe = (SwipeRefreshLayout) rootview.findViewById(R.id.swipe);
         swipe.setColorSchemeColors(getResources().getColor(R.color.accent_400));
         fab = (FloatingActionButton) rootview.findViewById(R.id.fab);
-
 
         final RecyclerView recyclerView = (RecyclerView) rootview.findViewById(R.id.dummyfrag_scrollableview);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -132,7 +141,7 @@ public class NewsFragment extends Fragment {
                     if (lastVisibleItemPosition == totalItemCount - 1) {
                         _loading = false;
 
-                        getArticle(null, null, null, null, "newest", articleList.size());
+                        getArticle(SearchQuery, null, null, null, "newest", articleList.size());
                     }
                 }
 
@@ -182,6 +191,24 @@ public class NewsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_news, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView sv = new SearchView(((MainActivity) getActivity()).getSupportActionBar().getThemedContext());
+        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        MenuItemCompat.setActionView(item, sv);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                SearchQuery=newText;
+                refresh();
+                return false;
+            }
+        });
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -216,9 +243,6 @@ public class NewsFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) return;
         getActivity().invalidateOptionsMenu();
-        Log.d(TAG, "begin_date="+data.getStringExtra("begin_date"));
-        Log.d(TAG, "end_date=" + data.getStringExtra("end_date"));
-        Log.d(TAG, "sort=" + data.getStringExtra("sort"));
         filter=new FilterStorage(
                 data.getStringExtra("sections"),
                 data.getStringExtra("begin_date"),
@@ -230,18 +254,25 @@ public class NewsFragment extends Fragment {
     private void getArticle(String q, String fq, String begin_date, String end_date, String order, Integer page) {
         if (isFilterModeEnabled()){
 
-            restInterface.getArticles(q,filter.getSections(),filter.getBegin_date(),filter.getEnd_date(),filter.getSort(),page
+            restInterface.getArticles(validateQuery(q),filter.getSections(),filter.getBegin_date(),filter.getEnd_date(),filter.getSort(),page
             ,getResources().getString(R.string.api_key_article_search), callback);
         }
-        else restInterface.getArticles(q, fq, begin_date, end_date, order, page
+        else restInterface.getArticles(validateQuery(q), fq, begin_date, end_date, order, page
                 , getResources().getString(R.string.api_key_article_search), callback);
     }
     private void refresh(){
         articleList.clear();
         adapter.setData(null);
         adapter.notifyDataSetChanged();
-        getArticle(null, null, null, null, "newest", null);
+        getArticle(SearchQuery, null, null, null, "newest", null);
     }
+
+    private String validateQuery(String searchQuery) {
+        if (searchQuery==null) return null;
+        if (searchQuery.isEmpty()) return null;
+        else return searchQuery;
+    }
+
     public class FilterStorage {
         private String sections,begin_date,end_date,sort;
 
@@ -265,7 +296,6 @@ public class NewsFragment extends Fragment {
         }
 
         public String getSections() {
-            Log.d(TAG, "Sections="+sections);
             return sections;
         }
 

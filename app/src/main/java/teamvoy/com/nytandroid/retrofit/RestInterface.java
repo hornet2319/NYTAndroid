@@ -2,8 +2,6 @@ package teamvoy.com.nytandroid.retrofit;
 
 import retrofit.Callback;
 import retrofit.http.GET;
-import retrofit.http.Header;
-import retrofit.http.Headers;
 import retrofit.http.Path;
 import retrofit.http.Query;
 import teamvoy.com.nytandroid.retrofit.article.Article;
@@ -27,9 +25,9 @@ public interface RestInterface {
      */
     @GET("/svc/mostpopular/v2/mostviewed/{section}/{time-period}.json")
     void getMostViewed(@Path("section") String section,
-                                     @Path("time-period") String time_period,
-                                     @Query("offset") String offset,
-                                     @Query("api-key")String api_key ,Callback<MostPopular> callback);
+                       @Path("time-period") String time_period,
+                       @Query("offset") String offset,
+                       @Query("api-key")String api_key ,Callback<MostPopular> callback);
 
     /** getting list of sections
      * @param most = mostemailed | mostshared | mostviewed

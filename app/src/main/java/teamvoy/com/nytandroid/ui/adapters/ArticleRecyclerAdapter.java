@@ -52,11 +52,14 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
         holder.section_name.setText(item.sectionName);
 
         if (item.byline==null) holder.author.setVisibility(View.GONE);
-        holder.author.setText(item.byline.original);
-        holder.content.setText(item.snippet);
+        else holder.author.setText(item.byline.original);
+
+        if (item.snippet==null) holder.content.setVisibility(View.GONE);
+        else holder.content.setText(item.snippet);
+
         if(item.multimedia.size()>0){
 
-            Picasso.with(context).load("http://static01.nyt.com/"+item.multimedia.get(0).url).into(holder.image);
+            Picasso.with(context).load("http://static01.nyt.com/" + item.multimedia.get(0).url).into(holder.image);
         }
 
     }
