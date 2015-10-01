@@ -202,7 +202,9 @@ public class NewsFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                SearchQuery=newText;
+                SearchQuery=newText.replaceAll(" +"," ").replaceAll(" ","+");
+                Log.d(TAG, "SearchQuery"+SearchQuery);
+                refresh();
                 refresh();
                 return false;
             }
@@ -267,7 +269,9 @@ public class NewsFragment extends Fragment {
 
     private String validateQuery(String searchQuery) {
         if (searchQuery==null) return null;
+        searchQuery=searchQuery.replaceAll(" ","");
         if (searchQuery.isEmpty()) return null;
+
         else return searchQuery;
     }
 
