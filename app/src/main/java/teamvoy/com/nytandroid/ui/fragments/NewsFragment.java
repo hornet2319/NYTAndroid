@@ -16,9 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +43,9 @@ public class NewsFragment extends Fragment {
     private SwipeRefreshLayout swipe;
     private List<Article> articleList;
     private ArticleRecyclerAdapter adapter;
-    private boolean _loading = true;
+    private boolean _loading = true,request_update_required=true;
     private FloatingActionButton fab;
     private FilterStorage filter=null;
-    private TextView search_resultTv;
-    private RelativeLayout search_resultContainer;
 
     private String SearchQuery=null;
 
@@ -81,11 +76,13 @@ public class NewsFragment extends Fragment {
         callback = new Callback<Article>() {
             @Override
             public void success(Article article, Response response) {
-                if (swipe.isRefreshing()) swipe.setRefreshing(false);
+                if (request_update_required) articleList.clear();
+
+               if (swipe.isRefreshing()) swipe.setRefreshing(false);
                 articleList.add(article);
-                List<Doc> data = new ArrayList<>();
-                for (int i = 0; i < articleList.size(); i++) {
-                    data.addAll(articleList.get(i).response.docs);
+                List<Doc> data = null;
+                data=new ArrayList<>();
+                for (int i = 0; i < articleList.size(); i++) {data.addAll(articleList.get(i).response.docs);
                 }
                 adapter.setData(data);
                 adapter.notifyDataSetChanged();
@@ -136,11 +133,12 @@ public class NewsFragment extends Fragment {
                 if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) fab.hide();
                 int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
                 //  if (lastVisibleItemPosition>10) fab.show();
-                if (_loading) {
+                if (_loading&&totalItemCount>0) {
 
                     if (lastVisibleItemPosition == totalItemCount - 1) {
                         _loading = false;
 
+                        request_update_required=false;
                         getArticle(SearchQuery, null, null, null, "newest", articleList.size());
                     }
                 }
@@ -197,15 +195,28 @@ public class NewsFragment extends Fragment {
         MenuItemCompat.setActionView(item, sv);
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String newText) {
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-                SearchQuery=newText;
+                if (newText.isEmpty()) {
+                    SearchQuery = "";
+                    Log.d(TAG, "SearchQuery=" + SearchQuery);
+                    articleList.clear();
+                    refresh();
+                    return false;
+                }
+                SearchQuery=newText.replaceAll("[ ]{2,}", " ");
+                Log.d(TAG, "SearchQuery=" + SearchQuery);
+                articleList.clear();
+                adapter.setData(null);
+                adapter.notifyDataSetChanged();
                 refresh();
+
+
+
                 return false;
             }
         });
@@ -261,6 +272,7 @@ public class NewsFragment extends Fragment {
                 , getResources().getString(R.string.api_key_article_search), callback);
     }
     private void refresh(){
+        request_update_required=true;
         articleList.clear();
         adapter.setData(null);
         adapter.notifyDataSetChanged();
@@ -270,10 +282,11 @@ public class NewsFragment extends Fragment {
     private String validateQuery(String searchQuery) {
         if (searchQuery==null) return null;
         if (searchQuery.isEmpty()) return null;
+
         else return searchQuery;
     }
 
-    public class FilterStorage {
+    private class FilterStorage {
         private String sections,begin_date,end_date,sort;
 
         public FilterStorage(String sections, String begin_date, String end_date, String sort) {

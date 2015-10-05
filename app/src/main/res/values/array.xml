@@ -8,6 +8,16 @@
         <item>newest</item>
         <item>oldest</item>
     </string-array>
+    <string-array name="pref_most_days_titles">
+        <item>One day</item>
+        <item>One week</item>
+        <item>One month</item>
+    </string-array>
+    <string-array name="pref_most_days_values">
+        <item>1</item>
+        <item>7</item>
+        <item>30</item>
+    </string-array>
     <string-array name="pref_article_section_titles">
         <item>Arts</item>
         <item>Automobiles</item>

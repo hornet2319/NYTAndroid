@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_filter" android:title="Filter"
+        android:icon="@drawable/ic_action_filter"
+        android:orderInCategory="90" app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_filter_enabled" android:title="Filter"
+        android:icon="@drawable/ic_action_filter_enabled"
+        android:visible="false"
+        android:orderInCategory="90" app:showAsAction="ifRoom" />
+</menu>

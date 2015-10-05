@@ -1,6 +1,7 @@
 package teamvoy.com.nytandroid.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import teamvoy.com.nytandroid.R;
 import teamvoy.com.nytandroid.retrofit.most_popular.MediaMetadatum;
 import teamvoy.com.nytandroid.retrofit.most_popular.Medium;
 import teamvoy.com.nytandroid.retrofit.most_popular.Result;
+import teamvoy.com.nytandroid.ui.ContentActivity;
 
 /**
  * Created by lubomyrshershun on 9/25/15.
@@ -91,12 +93,16 @@ public class MostPopularRecyclerAdapter  extends RecyclerView.Adapter<MostPopula
             content=(TextView)view.findViewById(R.id.article_content);
             type.setVisibility(View.VISIBLE);
             date.setVisibility(View.VISIBLE);
+            itemView.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View view) {
-
+            Intent intent=new Intent(context, ContentActivity.class);
+            intent.putExtra("url",data.get(getAdapterPosition()).url);
+            intent.putExtra("section",data.get(getAdapterPosition()).section);
+            context.startActivity(intent);
         }
     }
 }

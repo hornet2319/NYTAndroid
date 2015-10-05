@@ -32,7 +32,7 @@ public class ArticleFilterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article_filter);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.tabanim_toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //setting the color of up arrow

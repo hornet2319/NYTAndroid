@@ -21,5 +21,5 @@ public class Section {
     public Integer numResults;
     @SerializedName("results")
     @Expose
-    public List<Result> results = new ArrayList<Result>();
+    public List<SectionResult> results = new ArrayList<>();
 }

@@ -1,6 +1,7 @@
 package teamvoy.com.nytandroid.retrofit;
 
 import retrofit.Callback;
+import retrofit.http.EncodedPath;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;

@@ -26,6 +26,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="teamvoy.com.nytandroid.ui.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.ContentActivity"
+            android:label="@string/title_activity_content"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="teamvoy.com.nytandroid.ui.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.MostPopularFilterActivity"
+            android:label="@string/title_activity_most_popular_filter"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="teamvoy.com.nytandroid.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
