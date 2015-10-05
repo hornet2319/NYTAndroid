@@ -22,16 +22,20 @@ public class RestClient {
     }
 
     public static RestClient getInstance(String tag) {
+        
         switch (tag) {
             case "results": {
                 gson = new GsonBuilder()
-                        .registerTypeAdapter(Result.class, new RestDeserializer(Result.class, "results"));
+                        .registerTypeAdapter(Result.class, new RestDeserializer(Result.class, "results"))
+                .disableHtmlEscaping();
                 init();
                 break;
             }
             case "docs": {
                 gson = new GsonBuilder()
-                        .registerTypeAdapter(Doc.class, new RestDeserializer(Doc.class, "docs"));
+                        .registerTypeAdapter(Doc.class, new RestDeserializer(Doc.class, "docs"))
+                .disableHtmlEscaping();
+
                 init();
                 break;
             }

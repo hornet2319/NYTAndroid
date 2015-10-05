@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import teamvoy.com.nytandroid.R;
@@ -31,6 +32,7 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
 
     public ArticleRecyclerAdapter(Context context) {
         this.context = context;
+        data=new ArrayList<>();
     }
 
     @Override
@@ -63,11 +65,16 @@ public class ArticleRecyclerAdapter extends RecyclerView.Adapter<ArticleRecycler
 
             Picasso.with(context).load("http://static01.nyt.com/" + item.multimedia.get(0).url).into(holder.image);
         }
+        else holder.image.setVisibility(View.GONE);
 
     }
 
     public void setData(List<Doc> data) {
-        this.data = data;
+        this.data.clear();
+        if (data!=null){
+            this.data.addAll(data);
+            return;
+        }
     }
 
     public class VersionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

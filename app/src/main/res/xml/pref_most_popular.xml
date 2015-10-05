@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:key="most_section"
+        android:summary="Choose sections"
+        android:title="Section"
+        android:negativeButtonText="Cancel"
+        android:positiveButtonText="Ok"/>
+    <ListPreference
+        android:key="most_period"
+        android:summary="Set time period"
+        android:title="Time period"
+        android:defaultValue="7"
+        android:entries="@array/pref_most_days_titles"
+        android:entryValues="@array/pref_most_days_values"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"/>
+</PreferenceScreen>

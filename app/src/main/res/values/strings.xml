@@ -9,4 +9,5 @@
 
     <string name="news">News</string>
     <string name="title_activity_content">ContentActivity</string>
+    <string name="title_activity_most_popular_filter">Settings</string>
 </resources>
