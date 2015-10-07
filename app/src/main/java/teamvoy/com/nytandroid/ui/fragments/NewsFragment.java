@@ -1,6 +1,8 @@
 package teamvoy.com.nytandroid.ui.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,9 +18,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -31,6 +36,7 @@ import teamvoy.com.nytandroid.retrofit.article.Doc;
 import teamvoy.com.nytandroid.ui.ArticleFilterActivity;
 import teamvoy.com.nytandroid.ui.MainActivity;
 import teamvoy.com.nytandroid.ui.adapters.ArticleRecyclerAdapter;
+import teamvoy.com.nytandroid.ui.adapters.SearchSuggestionsAdapter;
 
 /**
  * Created by lubomyrshershun on 9/24/15.
@@ -46,8 +52,10 @@ public class NewsFragment extends Fragment {
     private boolean _loading = true,request_update_required=true;
     private FloatingActionButton fab;
     private FilterStorage filter=null;
-
+    private Integer queriesCounter=0;
+    private SharedPreferences sPrefs;
     private String SearchQuery=null;
+   // private Set<String> queries;
 
 
     public NewsFragment() {
@@ -59,6 +67,13 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View rootview = inflater.inflate(R.layout.fragment_main, container, false);
+         //get number of saved queries
+        sPrefs=getActivity().getSharedPreferences("queries", Context.MODE_PRIVATE);
+
+        queriesCounter=sPrefs.getInt("counter",0);
+        if (queriesCounter>200){
+            sPrefs.edit().clear().commit();
+        }
         restInterface = RestClient.getInstance("docs").getClient();
         articleList = new ArrayList<>();
         swipe = (SwipeRefreshLayout) rootview.findViewById(R.id.swipe);
@@ -142,7 +157,6 @@ public class NewsFragment extends Fragment {
                         getArticle(SearchQuery, null, null, null, "newest", articleList.size());
                     }
                 }
-
             }
         });
         //set listener for swipe
@@ -154,6 +168,14 @@ public class NewsFragment extends Fragment {
         });
 
         return rootview;
+    }
+
+    private Set<String> getQueries() {
+        Set<String> queries=new HashSet<>();
+        for (int i=0;i<queriesCounter;i++){
+            queries.add(sPrefs.getString("query"+i,""));
+        }
+        return queries;
     }
 
     @Override
@@ -190,12 +212,42 @@ public class NewsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_news, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView sv = new SearchView(((MainActivity) getActivity()).getSupportActionBar().getThemedContext());
+        final SearchView sv = new SearchView(((MainActivity) getActivity()).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        sv.setSuggestionsAdapter(new SearchSuggestionsAdapter(getActivity()));
         MenuItemCompat.setActionView(item, sv);
+        sv.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onSuggestionClick(int position) {
+
+                SearchQuery=sPrefs.getString("query"+position,"");
+                sv.setQuery(SearchQuery, false);
+                Log.d(TAG, "SearchQuery=" + SearchQuery);
+                articleList.clear();
+                adapter.setData(null);
+                adapter.notifyDataSetChanged();
+                refresh();
+                return false;
+            }
+        });
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String newText) {
+                //TODO save search query here (done)
+                if (getQueries().contains(newText)) return false;
+                SharedPreferences.Editor editor= sPrefs.edit();
+                editor.putString("query"+queriesCounter,newText);
+                queriesCounter++;
+                editor.putInt("counter",queriesCounter);
+                Log.d("TAG","writing query"+queriesCounter+" "+newText);
+                editor.apply();
+
                 return false;
             }
 
@@ -285,6 +337,8 @@ public class NewsFragment extends Fragment {
 
         else return searchQuery;
     }
+
+
 
     private class FilterStorage {
         private String sections,begin_date,end_date,sort;
